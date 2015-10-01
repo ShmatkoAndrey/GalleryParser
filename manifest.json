@@ -1,0 +1,23 @@
+{
+ "manifest_version": 2,
+ "name": "Gallery Parser", // Название расширения
+ "version": "1.0", // Номер версии
+ "description": "Gallery Parser", // Описание расширения
+
+ "permissions": [
+  "tabs", // Разрешить расширению работать с вкладками
+  "activeTab"
+ ],
+
+ "content_scripts": [
+  {
+   "matches": ["http://*/*","https://*/*"],
+   "js": ["contentscript.js"]
+  }],
+
+ "browser_action": { // Элементы браузера
+  "default_title": "Pars", // Название кнопки
+  "default_icon": "icon.png", // Иконка для кнопки
+  "default_popup": "popup.html" // Всплывающее окно
+ }
+}
