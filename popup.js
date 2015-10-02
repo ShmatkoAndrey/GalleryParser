@@ -1,27 +1,42 @@
 function onWindowLoad() {
 
     chrome.tabs.getSelected(function (tab) {
-        getHtml(tab.url)
+        getHtml(tab)
+
     });
 
-    var getImages = function (html) {
-        var listImg = []
+    var getImages = function (html, tab) {
+        var listImg = [];
         var i = 1;
         while (html.split('img src="')[i] != undefined) {
-            listImg[listImg.length] = html.split('img src="')[i].split('"')[0]
-            showImage(listImg[listImg.length - 1])
+
+            var link = html.split('img src="')[i].split('"')[0];
+
+            if (link[1] == '/') {
+                break;
+            }
+            else if (link[0] == '/') {
+                listImg[listImg.length] = tab.url + link
+            }
+            else if(link[0] == 'h') {
+                listImg[listImg.length] = link
+            }
+            showImage(listImg[listImg.length - 1]);
+
             i++;
         }
     };
 
-    var showImage = function (imgSrc) {//0661584263
-        document.getElementById('image').insertAdjacentHTML('afterend', '<img src = ' + imgSrc + '></img>');
+    var showImage = function (imgSrc) {
+        document.getElementById('image').insertAdjacentHTML('beforeend', '<img src = ' + imgSrc + '><//img>');
+        //document.getElementById('image').insertAdjacentHTML('beforeend', '<input type="checkbox"/>');
+
     };
 
-    var getHtml = function (url) {
-        var xmlhttp = new getXmlHttp();
+    var getHtml = function (tab) {
+        var xmlhttp = new XMLHttpRequest();
 
-        xmlhttp.open("GET", url, true);
+        xmlhttp.open("GET", tab.url, true);
         xmlhttp.send(null);
 
         xmlhttp.onreadystatechange = function () {
@@ -30,7 +45,7 @@ function onWindowLoad() {
             if (xmlhttp.status == 200) {
                 if (xmlhttp.responseText) {
 
-                    getImages(xmlhttp.responseText)
+                    getImages(xmlhttp.responseText, tab)
                     //return xmlhttp.responseText
                 }
             }
@@ -45,23 +60,6 @@ function onWindowLoad() {
             alert("Error: " + message)
         }
     };
-
-    function getXmlHttp() {
-        var xmlhttp;
-        try {
-            xmlhttp = new ActiveXObject("Msxml2.XMLHTTP");
-        } catch (e) {
-            try {
-                xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
-            } catch (E) {
-                xmlhttp = false;
-            }
-        }
-        if (!xmlhttp && typeof XMLHttpRequest != 'undefined') {
-            xmlhttp = new XMLHttpRequest();
-        }
-        return xmlhttp;
-    }
 }
 
 window.onload = onWindowLoad;
