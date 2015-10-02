@@ -1,65 +1,49 @@
 function onWindowLoad() {
 
     chrome.tabs.getSelected(function (tab) {
-        getHtml(tab)
+        chrome.tabs.sendRequest(tab.id, {method: "getHTML"}, function (response) {
+            if (response.method == "getHTML") {
 
-    });
+                var doc = document.implementation.createHTMLDocument('');
+                doc.open();
+                doc.write(response.data);
+                doc.close();
 
-    var getImages = function (html, tab) {
-        var listImg = [];
-        var i = 1;
-        while (html.split('img src="')[i] != undefined) {
+                var listImg = doc.body.getElementsByTagName('img');
 
-            var link = html.split('img src="')[i].split('"')[0];
-
-            if (link[1] == '/') {
-                break;
-            }
-            else if (link[0] == '/') {
-                listImg[listImg.length] = tab.url + link
-            }
-            else if(link[0] == 'h') {
-                listImg[listImg.length] = link
-            }
-            showImage(listImg[listImg.length - 1]);
-
-            i++;
-        }
-    };
-
-    var showImage = function (imgSrc) {
-        document.getElementById('image').insertAdjacentHTML('beforeend', '<img src = ' + imgSrc + '><//img>');
-        //document.getElementById('image').insertAdjacentHTML('beforeend', '<input type="checkbox"/>');
-
-    };
-
-    var getHtml = function (tab) {
-        var xmlhttp = new XMLHttpRequest();
-
-        xmlhttp.open("GET", tab.url, true);
-        xmlhttp.send(null);
-
-        xmlhttp.onreadystatechange = function () {
-            if (xmlhttp.readyState != 4) return;
-            clearTimeout(timeout)
-            if (xmlhttp.status == 200) {
-                if (xmlhttp.responseText) {
-
-                    getImages(xmlhttp.responseText, tab)
-                    //return xmlhttp.responseText
+                for (var i = 0; i < listImg.length; i++) {
+                    if (listImg[i].src[0] == 'h')
+                        showImage(listImg[i].src, i);
                 }
             }
-        };
+        });
+    });
 
-        var timeout = setTimeout(function () {
-            xmlhttp.abort();
-            handleError("Time over")
-        }, 10000);
+    var showImage = function (imgSrc, i) {
 
-        function handleError(message) {
-            alert("Error: " + message)
-        }
+        document.getElementById('image' + (i % 4 + 1)).insertAdjacentHTML('beforeend',
+            '<img class = "unselected" id =' + i + ' src = ' + imgSrc + '><//img>');
+
+        document.getElementById(i).addEventListener("click", function () {
+            if(document.getElementById(i).className != "selected")
+                document.getElementById(i).className = "selected"
+            else
+                document.getElementById(i).className = "unselected"
+        });
     };
+
+    document.getElementById('ok').addEventListener("click", function () {
+
+        var lst = document.body.getElementsByTagName('img');
+        var lst_to_add = []
+
+        for (var i = 0; i < lst.length; i++) {
+            if(lst[i].className == "selected")
+                lst_to_add[lst_to_add.length] = lst[i]
+        }
+
+        alert(lst_to_add.length)
+    });
 }
 
 window.onload = onWindowLoad;
