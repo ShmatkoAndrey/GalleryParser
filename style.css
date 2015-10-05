@@ -12,7 +12,7 @@ td, th {
 
 .selected
 {
-    border: 4px dashed red;
+    border: 4px ridge red;
 }
 .unselected
 {

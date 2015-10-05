@@ -24,10 +24,6 @@ function onWindowLoad() {
         document.getElementById('image' + (i % 4 + 1)).insertAdjacentHTML('beforeend',
             '<img class = "unselected" id =' + i + ' src = ' + imgSrc + '><//img>');
 
-        document.getElementById(i).addEventListener("click", function () {
-            select(i)
-        });
-
         document.getElementById(i).ondragstart = function () {
             return false;
         };
@@ -39,29 +35,36 @@ function onWindowLoad() {
                 document.getElementById(i).className = "selected"
         };
 
-        //---------------------------------
+        document.getElementById(i).onmousedown = function (e) {
+            select(i)
+        };
 
-            document.getElementById(i).onmouseover = function (e) {
-                console.log(i)
-            }
-            //if (e.button == 0) {
-            //    select(i)
-            //}
-
-        //---------------------------------
+        document.getElementById(i).onmouseover = function (e) {
+            if (e.buttons == 1)
+                document.getElementById(i).className = "selected"
+        };
     };
 
     document.getElementById('ok').addEventListener("click", function () {
 
         var lst = document.body.getElementsByTagName('img');
-        var lst_to_add = []
+
+        var respLst = "upload=";
 
         for (var i = 0; i < lst.length; i++) {
-            if (lst[i].className == "selected")
-                lst_to_add[lst_to_add.length] = lst[i]
+            if(lst[i].className == "selected"){
+                respLst += lst[i].src + "+"
+            }
         }
 
-        alert(lst_to_add.length)
+        ////var worker = new Worker('worker.js');
+        ////worker.postMessage(request.url);
+
+        //var xhr = new XMLHttpRequest();
+        //xhr.open('POST', 'http://localhost:3000/posts/new?' + respLst, true);
+        //xhr.send();
+
+        alert('Saved')
     });
 }
 
