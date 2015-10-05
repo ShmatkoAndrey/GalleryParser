@@ -29,10 +29,8 @@ function onWindowLoad() {
         };
 
         var select = function (i) {
-            if (document.getElementById(i).className == "selected")
-                document.getElementById(i).className = "unselected"
-            else
-                document.getElementById(i).className = "selected"
+            if (document.getElementById(i).className == "selected") document.getElementById(i).className = "unselected"
+            else document.getElementById(i).className = "selected"
         };
 
         document.getElementById(i).onmousedown = function (e) {
@@ -49,22 +47,21 @@ function onWindowLoad() {
 
         var lst = document.body.getElementsByTagName('img');
 
-        var respLst = "upload=";
+        //var respLst = "upload=";
 
         for (var i = 0; i < lst.length; i++) {
             if(lst[i].className == "selected"){
-                respLst += lst[i].src + "+"
+                //respLst += lst[i].src + "+"
+                //var worker = new Worker('worker.js');
+                //worker.postMessage(lst[i].src);
             }
         }
-
-        ////var worker = new Worker('worker.js');
-        ////worker.postMessage(request.url);
 
         //var xhr = new XMLHttpRequest();
         //xhr.open('POST', 'http://localhost:3000/posts/new?' + respLst, true);
         //xhr.send();
 
-        alert('Saved')
+        alert('?Saved')
     });
 }
 

@@ -1,5 +1,3 @@
-////----------------------- old
-////importScripts('xhr2-FormData.js')
 //self.onmessage = function(event) {
 //    var resourceUrl = event.data;
 //    var xhr = new XMLHttpRequest();
@@ -7,6 +5,7 @@
 //    xhr.responseType = 'arraybuffer';
 //
 //    xhr.onload = function(e) {
+//
 //        if (xhr.status == 200) {
 //            nextStep(xhr.response);
 //        }
@@ -19,7 +18,7 @@
 //    fd.append('server-method', 'upload');
 //    fd.append('file', arrayBuffer);
 //
-//    xhr.open('POST', 'http://YOUR.DOMAIN.HERE/posturl.php', true);
+//    xhr.open('POST', 'http://localhost:3000', true);
 //
 //    xhr.send(fd);
 //};
