@@ -25,13 +25,30 @@ function onWindowLoad() {
             '<img class = "unselected" id =' + i + ' src = ' + imgSrc + '><//img>');
 
         document.getElementById(i).addEventListener("click", function () {
-            if(document.getElementById(i).className == "selected")
+            select(i)
+        });
+
+        document.getElementById(i).ondragstart = function () {
+            return false;
+        };
+
+        var select = function (i) {
+            if (document.getElementById(i).className == "selected")
                 document.getElementById(i).className = "unselected"
             else
                 document.getElementById(i).className = "selected"
-        });
+        };
 
-        document.getElementById(i).ondragstart = function() { return false }
+        //---------------------------------
+
+            document.getElementById(i).onmouseover = function (e) {
+                console.log(i)
+            }
+            //if (e.button == 0) {
+            //    select(i)
+            //}
+
+        //---------------------------------
     };
 
     document.getElementById('ok').addEventListener("click", function () {
@@ -40,7 +57,7 @@ function onWindowLoad() {
         var lst_to_add = []
 
         for (var i = 0; i < lst.length; i++) {
-            if(lst[i].className == "selected")
+            if (lst[i].className == "selected")
                 lst_to_add[lst_to_add.length] = lst[i]
         }
 
