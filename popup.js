@@ -25,11 +25,13 @@ function onWindowLoad() {
             '<img class = "unselected" id =' + i + ' src = ' + imgSrc + '><//img>');
 
         document.getElementById(i).addEventListener("click", function () {
-            if(document.getElementById(i).className != "selected")
-                document.getElementById(i).className = "selected"
-            else
+            if(document.getElementById(i).className == "selected")
                 document.getElementById(i).className = "unselected"
+            else
+                document.getElementById(i).className = "selected"
         });
+
+        document.getElementById(i).ondragstart = function() { return false }
     };
 
     document.getElementById('ok').addEventListener("click", function () {
