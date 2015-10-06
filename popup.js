@@ -47,21 +47,17 @@ function onWindowLoad() {
 
         var lst = document.body.getElementsByTagName('img');
 
-        //var respLst = "upload=";
-
+        var respLst = "";
         for (var i = 0; i < lst.length; i++) {
             if(lst[i].className == "selected"){
-                //respLst += lst[i].src + "+"
-                //var worker = new Worker('worker.js');
-                //worker.postMessage(lst[i].src);
+                respLst += lst[i].src + " "
             }
         }
 
-        //var xhr = new XMLHttpRequest();
-        //xhr.open('POST', 'http://localhost:3000/posts/new?' + respLst, true);
-        //xhr.send();
+        var worker = new Worker('worker.js');
+        worker.postMessage(respLst);
 
-        alert('?Saved')
+        alert('Maybe saved')
     });
 }
 
