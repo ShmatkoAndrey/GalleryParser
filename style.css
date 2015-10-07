@@ -28,11 +28,11 @@ td, th {
     display:inline-block;
     cursor:pointer;
     color:#ffffff;
-    font-family:Arial;
+    /*font-family:Arial;*/
     font-size:17px;
-    padding:5px 31px;
+    padding:5px 100px;
     text-decoration:none;
-    text-shadow:0px 1px 0px #2f6627;
+    text-shadow:0 1px 0 #2f6627;
 }
 .btn:hover {
     background-color:#5cbf2a;
@@ -42,3 +42,16 @@ td, th {
     top:1px;
 }
 
+#footer {
+    position: fixed; /* Фиксированное положение */
+    left: 0; bottom: 0; /* Левый нижний угол */
+    padding: 0; /* Поля вокруг текста */
+    background: #fff; /* Цвет фона */
+    color: #fff; /* Цвет текста */
+    width: 100%; /* Ширина слоя */
+}
+
+#content
+{
+    padding-bottom: 45px;
+}

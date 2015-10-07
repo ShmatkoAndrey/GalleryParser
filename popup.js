@@ -1,6 +1,11 @@
 function onWindowLoad() {
 
+    var siteUrl = "site"
+
     chrome.tabs.getSelected(function (tab) {
+
+        siteUrl = tab.url;
+
         chrome.tabs.sendRequest(tab.id, {method: "getHTML"}, function (response) {
             if (response.method == "getHTML") {
 
@@ -47,7 +52,7 @@ function onWindowLoad() {
 
         var lst = document.body.getElementsByTagName('img');
 
-        var respLst = "";
+        var respLst = "site:"+siteUrl+"++ ";
         for (var i = 0; i < lst.length; i++) {
             if(lst[i].className == "selected"){
                 respLst += lst[i].src + " "
