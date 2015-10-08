@@ -59,6 +59,11 @@ td, th {
     width: 100%; /* Ширина слоя */
 }
 
+
+#footer h4 {
+    color: orangered;
+}
+
 #content
 {
     padding-bottom: 45px;

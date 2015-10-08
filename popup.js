@@ -20,8 +20,6 @@ function onWindowLoad() {
                     //if (listImg[i].src[0] == 'h')
                         showImage(listImg[i].src, i);
                 }
-
-                alert('If you want to add imgs you must be log in https://galleryshmat.herokuapp.com')
             }
         });
     });
