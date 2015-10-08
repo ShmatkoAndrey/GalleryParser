@@ -1,6 +1,6 @@
 function onWindowLoad() {
 
-    var siteUrl = "site"
+    var siteUrl = "site";
 
     chrome.tabs.getSelected(function (tab) {
 
@@ -17,9 +17,11 @@ function onWindowLoad() {
                 var listImg = doc.body.getElementsByTagName('img');
 
                 for (var i = 0; i < listImg.length; i++) {
-                    if (listImg[i].src[0] == 'h')
+                    //if (listImg[i].src[0] == 'h')
                         showImage(listImg[i].src, i);
                 }
+
+                alert('If you want to add imgs you must be log in https://galleryshmat.herokuapp.com')
             }
         });
     });
@@ -27,15 +29,19 @@ function onWindowLoad() {
     var showImage = function (imgSrc, i) {
 
         document.getElementById('image' + (i % 4 + 1)).insertAdjacentHTML('beforeend',
-            '<img class = "unselected" id =' + i + ' src = ' + imgSrc + '><//img>');
+            '<div class="image unselected"><img id =' + i + ' src = ' + imgSrc + '><//img><//div>');
 
         document.getElementById(i).ondragstart = function () {
             return false;
         };
 
         var select = function (i) {
-            if (document.getElementById(i).className == "selected") document.getElementById(i).className = "unselected"
-            else document.getElementById(i).className = "selected"
+            if (document.getElementById(i).parentNode.className == "image selected") {
+                document.getElementById(i).parentNode.className = "image unselected"
+            }
+            else {
+                document.getElementById(i).parentNode.className = "image selected"
+            }
         };
 
         document.getElementById(i).onmousedown = function (e) {
@@ -43,8 +49,9 @@ function onWindowLoad() {
         };
 
         document.getElementById(i).onmouseover = function (e) {
-            if (e.buttons == 1)
-                document.getElementById(i).className = "selected"
+            if (e.buttons == 1) {
+                document.getElementById(i).parentNode.className = "image selected"
+            }
         };
     };
 
@@ -54,7 +61,7 @@ function onWindowLoad() {
 
         var respLst = "site:"+siteUrl+"++ ";
         for (var i = 0; i < lst.length; i++) {
-            if(lst[i].className == "selected"){
+            if(lst[i].parentNode.className == "image selected"){
                 respLst += lst[i].src + " "
             }
         }
