@@ -4,8 +4,8 @@ self.onmessage = function(event) {
     var fd = new FormData();
     fd.append('server-method', 'upload');
     fd.append('file', resourceUrl);
-    //xhr.open('POST', 'http://localhost:3000/posts', true);
-    xhr.open('POST', 'https://galleryshmat.herokuapp.com/posts', true);
+    xhr.open('POST', 'http://localhost:3000/posts', true);
+    //xhr.open('POST', 'https://galleryshmat.herokuapp.com/posts', true);
     xhr.send(fd);
 };
 

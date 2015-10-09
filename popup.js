@@ -67,7 +67,10 @@ function onWindowLoad() {
         var worker = new Worker('worker.js');
         worker.postMessage(respLst);
 
-        alert('Maybe saved')
+        chrome.tabs.getSelected(function (tab) {
+            chrome.tabs.update(tab.id, {url: 'https://galleryshmat.herokuapp.com'});
+        });
+
     });
 }
 
