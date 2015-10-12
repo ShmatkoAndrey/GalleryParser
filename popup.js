@@ -42,11 +42,11 @@ function onWindowLoad() {
             }
         };
 
-        document.getElementById(i).onmousedown = function (e) {
+        document.getElementById(i).parentNode.onmousedown = function (e) {
             select(i)
         };
 
-        document.getElementById(i).onmouseover = function (e) {
+        document.getElementById(i).parentNode.onmouseover = function (e) {
             if (e.buttons == 1) {
                 document.getElementById(i).parentNode.className = "image selected"
             }
