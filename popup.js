@@ -17,7 +17,6 @@ function onWindowLoad() {
                 var listImg = doc.body.getElementsByTagName('img');
 
                 for (var i = 0; i < listImg.length; i++) {
-                    //if (listImg[i].src[0] == 'h')
                         showImage(listImg[i].src, i);
                 }
             }
